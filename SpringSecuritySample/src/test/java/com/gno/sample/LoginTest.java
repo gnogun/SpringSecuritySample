@@ -3,6 +3,8 @@ package com.gno.sample;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import javax.servlet.Filter;
@@ -25,7 +27,10 @@ import com.gno.sample.dto.Person;
 import com.gno.sample.repository.PersonRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml", "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
+@ContextConfiguration(locations = {
+		"file:src/main/webapp/WEB-INF/spring/root-context.xml",
+		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml",
+		"file:src/main/webapp/WEB-INF/spring/security-context.xml" })
 @WebAppConfiguration
 public class LoginTest {
 
@@ -60,7 +65,7 @@ public class LoginTest {
 		repository.save(person);
 	}
 
-	@Test
+//	@Test
 	public void requestProtectedUrlWithUserDetails() throws Exception {
 		UserDetails userDetails = userService.loadUserByUsername("gno");
 		mvc.perform(get("/main.do").with(user(userDetails)))
@@ -70,5 +75,14 @@ public class LoginTest {
 				.andExpect(
 						authenticated()
 								.withAuthenticationPrincipal(userDetails));
+	}
+
+	@Test
+	public void formLoginTest() throws Exception {
+		mvc.perform(
+				post("/loginProcess").param("username","gno").param("password", "gno2"))
+				.andDo(print())
+				.andExpect(status().isOk());
+				
 	}
 }
