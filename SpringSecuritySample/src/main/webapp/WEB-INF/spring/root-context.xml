@@ -16,7 +16,7 @@
 		<property name="username" value="user"></property>
 		<property name="password" value="gnogun"></property>
 		<property name="url"
-			value="jdbc:derby://localhost:1527/txtest;create=true"></property>
+			value="jdbc:derby://localhost:1527/txtest"></property>
 	</bean>
 
 	<jpa:repositories base-package="com.gno.sample.repository"
@@ -37,10 +37,12 @@
 				<prop key="hibernate.connection.shutdown">true</prop>
 				<prop key="hibernate.show_sql">true</prop> <!-- SQL 출력 -->
 				<prop key="hibernate.ddl_auto">auto</prop>
+
 				<!-- 
 				<prop key="hibernate.hbm2ddl.auto">create</prop> 
 				 -->
-				<!-- 테이블 자동 생성 -->
+
+
 			</props>
 		</property>
 		<property name="packagesToScan" value="com.gno.sample.dto" />
@@ -51,7 +53,7 @@
 
 	</bean>
 
-	<tx:annotation-driven />
+
 
 	
 </beans>
