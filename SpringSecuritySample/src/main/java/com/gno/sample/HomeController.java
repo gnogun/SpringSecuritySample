@@ -36,6 +36,16 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/admin.do", method = RequestMethod.GET)
+	public String admin() {		
+		return "admin";
+	}
+	
+	@RequestMapping(value = "/user.do", method = RequestMethod.GET)
+	public String user() {		
+		return "user";
+	}
+	
 	@RequestMapping(value = {"/login.do"}, method = RequestMethod.GET)
 	public String login() {
 //		logger.info("Welcome home! The client locale is {}.");

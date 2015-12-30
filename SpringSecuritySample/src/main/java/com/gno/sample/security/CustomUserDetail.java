@@ -24,7 +24,7 @@ public class CustomUserDetail implements UserDetails{
 		// TODO Auto-generated method stub
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         
-        authorities.add(new SimpleGrantedAuthority("ROLE_"+person.getAuthor()));
+        authorities.add(new SimpleGrantedAuthority(person.getAuth()));
 		
 		return authorities;
 	}
@@ -38,7 +38,7 @@ public class CustomUserDetail implements UserDetails{
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return this.person.getId();
+		return this.person.getName();
 	}
 
 	@Override

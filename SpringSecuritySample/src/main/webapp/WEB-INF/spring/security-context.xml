@@ -31,7 +31,13 @@
 			재정의 하는 방법은 찾아놨는데 이름을 뭘 붙일지 몰라서 그냥 default prefix 사용했음-->
 			
 		<security:intercept-url pattern="/main.do"
-			access="hasAnyRole('ROLE_USER')" />		
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+
+		<security:intercept-url pattern="/admin.do"
+			access="hasAnyRole('ROLE_ADMIN')" />
+
+		<security:intercept-url pattern="/user.do"
+			access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
 
 		<security:intercept-url pattern="/*" access="permitAll" />
 		<!-- access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" -->
@@ -70,7 +76,10 @@ authentication-failure-url속성을 사용하여 리다이렉트를 해준다.
 
 		<security:logout logout-url="/logout" logout-success-url="/login.do" />
 		
-		
+		<security:logout logout-url="/logout"
+			invalidate-session="true"
+			delete-cookies="JSESSIONID,auth" 
+			logout-success-url="/login.do" />
 		<!-- delete-cookies="" logout-url="" invalidate-session="true" success-handler-ref="" -->
 
 	</security:http>

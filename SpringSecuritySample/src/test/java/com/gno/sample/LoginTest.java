@@ -59,16 +59,18 @@ public class LoginTest {
 		Person person = new Person();
 
 		person.setEmail("gnogun@naver.com");
-		person.setId("gno");
+		person.setName("gno");
 		person.setPassword(passwordEncoder.encode("gno"));
-		person.setAuthor("ADMIN");
-		repository.save(person);
-		Person person2 = new Person();
-		person2.setEmail("zest133@naver.com");
-		person2.setId("zest133");
-		person2.setPassword(passwordEncoder.encode("zest133"));
-		person2.setAuthor("USER");
+		person.setAuth("ROLE_ADMIN");
 		
+		Person person2 = new Person();
+
+		person2.setEmail("gnogun@naver.com");
+		person2.setName("gno123");
+		person2.setPassword(passwordEncoder.encode("gno123"));
+		person2.setAuth("ROLE_USER");
+
+		repository.save(person);
 		repository.save(person2);
 	}
 
@@ -87,9 +89,10 @@ public class LoginTest {
 	@Test
 	public void formLoginTest() throws Exception {
 		mvc.perform(
-				post("/loginProcess").param("id","zest133").param("password", "zest133"))
+				post("/loginProcess").param("username","gno").param("password", "gno"))
 				.andDo(print())
-				.andExpect(status().isOk());
-				
+				.andExpect(status().isFound());
+		
+		
 	}
 }
