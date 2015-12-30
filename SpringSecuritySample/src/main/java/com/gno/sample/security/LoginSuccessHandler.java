@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,7 +27,18 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		List<GrantedAuthority> authorities = (List<GrantedAuthority>) auth.getAuthorities();
 		String strAuth = authorities.get(0).getAuthority();
 		
-		response.sendRedirect(request.getContextPath() +  "/main.do");
+		Cookie cookie = new Cookie("auth", strAuth);
+		cookie.setPath("/");
+		// ���߿� ������Ƽ�� ����
+//		cookie.setDomain("test.com");
+		response.addCookie(cookie);
+		
+		if(strAuth.equals("ROLE_ADMIN")){
+			response.sendRedirect(request.getContextPath() +  "/admin.do");
+		}else{
+			response.sendRedirect(request.getContextPath() +  "/user.do");
+		}
+		
 		
 	}
 

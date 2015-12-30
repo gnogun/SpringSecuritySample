@@ -37,7 +37,10 @@
 				<prop key="hibernate.connection.shutdown">true</prop>
 				<prop key="hibernate.show_sql">true</prop> <!-- SQL 출력 -->
 				<prop key="hibernate.ddl_auto">auto</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop> <!-- 테이블 자동 생성 -->
+				<!-- 
+				<prop key="hibernate.hbm2ddl.auto">create</prop> 
+				 -->
+				<!-- 테이블 자동 생성 -->
 			</props>
 		</property>
 		<property name="packagesToScan" value="com.gno.sample.dto" />

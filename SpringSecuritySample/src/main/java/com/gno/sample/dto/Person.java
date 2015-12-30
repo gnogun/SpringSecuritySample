@@ -16,6 +16,8 @@ public class Person {
 	private String email;
 	private String password;
 	
+	private String auth;
+	
 	public Person() {
 		// TODO Auto-generated constructor stub
 	}
@@ -59,6 +61,14 @@ public class Person {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
 	}
 
 	@Override

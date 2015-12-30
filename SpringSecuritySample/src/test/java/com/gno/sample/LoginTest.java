@@ -61,8 +61,17 @@ public class LoginTest {
 		person.setEmail("gnogun@naver.com");
 		person.setName("gno");
 		person.setPassword(passwordEncoder.encode("gno"));
+		person.setAuth("ROLE_ADMIN");
+		
+		Person person2 = new Person();
+
+		person2.setEmail("gnogun@naver.com");
+		person2.setName("gno123");
+		person2.setPassword(passwordEncoder.encode("gno123"));
+		person2.setAuth("ROLE_USER");
 
 		repository.save(person);
+		repository.save(person2);
 	}
 
 //	@Test
@@ -80,9 +89,10 @@ public class LoginTest {
 	@Test
 	public void formLoginTest() throws Exception {
 		mvc.perform(
-				post("/loginProcess").param("username","gno").param("password", "gno2"))
+				post("/loginProcess").param("username","gno").param("password", "gno"))
 				.andDo(print())
-				.andExpect(status().isOk());
-				
+				.andExpect(status().isFound());
+		
+		
 	}
 }

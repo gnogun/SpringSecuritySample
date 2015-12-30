@@ -24,7 +24,7 @@ public class CustomUserDetail implements UserDetails{
 		// TODO Auto-generated method stub
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority(person.getAuth()));
 		
 		return authorities;
 	}
