@@ -3,6 +3,7 @@ package com.gno.sample.security;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,9 +21,21 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		
-		
-		
+		eraseCookie(request, response);
+		setDefaultTargetUrl("/login.do");
 		
 		super.onLogoutSuccess(request, response, authentication);
+	}
+	
+	private void eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
+	    Cookie[] cookies = req.getCookies();
+	    if (cookies != null)
+	        for (int i = 0; i < cookies.length; i++) {
+	            cookies[i].setValue("");
+	            cookies[i].setPath("/");
+	            cookies[i].setMaxAge(0);
+	            
+	            resp.addCookie(cookies[i]);
+	        }
 	}
 }

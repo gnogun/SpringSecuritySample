@@ -49,11 +49,16 @@
 
 		<security:logout logout-url="/logout"
 			invalidate-session="true"
+			success-handler-ref="logoutSuccessHandler" 
+			/>
+			
+			
+
+
+		<!--
 			delete-cookies="JSESSIONID,auth" 
 			logout-success-url="/login.do" />
-
-
-		<!-- delete-cookies="" logout-url="" invalidate-session="true" success-handler-ref="" -->
+		 delete-cookies="" logout-url="" invalidate-session="true" success-handler-ref="" -->
 
 	</security:http>
 
@@ -79,4 +84,5 @@
 
 	<bean id="loginSuccessHandler" class="com.gno.sample.security.LoginSuccessHandler"></bean>
 	<bean id="loginFailureHandler" class="com.gno.sample.security.LoginFailureHandler"></bean>
+	<bean id="logoutSuccessHandler" class="com.gno.sample.security.CustomLogoutSuccessHandler"></bean>
 </beans>
