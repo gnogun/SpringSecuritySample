@@ -12,21 +12,23 @@ public class Person {
 
 	private int idx;
 
-	private String name;
+	private String id;
 	private String email;
 	private String password;
-	
+	private String author;
 	public Person() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Person(String name, String email, String password) {
+	public Person(String id, String email, String password) {
 		// TODO Auto-generated constructor stub
-		this.name = name;
+		this.id = id;
 		this.email = email;
 		this.password = password;
 	}
 	
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getIdx() {
@@ -37,13 +39,7 @@ public class Person {
 		this.idx = idx;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 
 	public String getEmail() {
 		return email;
@@ -61,10 +57,26 @@ public class Person {
 		this.password = password;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "name=" + name + ", password=" + password + ", email=" + email;
+		return "id=" + id + ", password=" + password + ", email=" + email;
 	}
 
 	

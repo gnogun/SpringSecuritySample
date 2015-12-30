@@ -8,7 +8,7 @@
 		action="loginProcess" runat="server">
 		<div class="da-form-row">
 			<div class=" da-home-form-big">
-				<input type="text" id="username" name="username"
+				<input type="text" id="username" name="id"
 					placeholder="Userid" minlength="3" maxlength="20" required="true"
 					nosymbols="true" nowhitespace="true" runat="server" />
 			</div>

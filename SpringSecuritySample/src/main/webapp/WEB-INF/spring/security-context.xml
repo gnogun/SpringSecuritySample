@@ -8,8 +8,20 @@
 
 	<context:annotation-config></context:annotation-config>
 
+	<!-- auto-config : 스프링 <security:anonymous /> 
+		<security:x509/> 
+		<security:http-basic /> 
+		<security:session-management></security:session-management> 
+		<security:expression-handler ref=""/> 
+		<security:custom-filter ref=""/> 
+		<security:port-mappings></security:port-mappings> 
+		<security:request-cache ref=""/> 
+		<security:remember-me/>에 설정을 default로 설정한다.   -->
+	<!--  user-expressions 는 intercept-url태그의 access가 true일 경우  
+	정의된 함수 ( hasAnyRole, isAnonymous() 등등 ) 를 사용할 수 있게 해준다.  -->
 	<security:http auto-config='true' use-expressions="true">
 	
+		<!-- spring 4.x때 추가된 옵션으로 ssl을 사용하지 않을 경우 csrf는 disalbed true로 해준다.  -->
 		<security:csrf disabled="true" />
 		<!-- autoconfig=false 면? filter도 -->
 		<!-- <security:intercept-url pattern="/login" access="isAnonymous()" /> -->
@@ -37,6 +49,9 @@
 					
 		<!-- always-use-default-target='true' = 서버가 죽었다 살아났을때 기존 가려고 했던 페이지를 무시하고 무조건 handler에 정의된 페이지로 이동 -->
 
+<!--authentication-failure-handler-ref와 authentication-success-handler-ref를 사용하지 않을경우는 
+authentication-failure-url속성을 사용하여 리다이렉트를 해준다.
+  -->
 		<security:form-login 
 			login-page="/login.do"
 			default-target-url="/main.do" 
@@ -44,7 +59,7 @@
 			authentication-failure-handler-ref="loginFailureHandler"			
 			always-use-default-target="true" 
 			login-processing-url="/loginProcess"
-			username-parameter="username" 
+			username-parameter="id" 
 			password-parameter="password"
 			
 			 />
@@ -70,11 +85,24 @@
 
 	</security:authentication-manager>
 
+
+
+<!--
+	provider는 이미 form에서 id 및 pwd(암호화 된값)을 가져오고 db에서 가져온 값을 UserService를 통해  UserDetail을 저장을 하며
+	UserDetail은 인증정보(db에서 가져온 사용자 값) 과 권한정보를 
+	가져와서 provider는 먼저 인증을 비교한후  true가 되면 권한(Grant Authority)을 부여한다.	  
+	  
+ -->
 	<bean id="CustomAuthenticationProvider" class="com.gno.sample.security.CustomAuthenticationProvider">
+
 		<property name="userDetailsService" ref="userService"></property>
 		<property name="passwordEncoder" ref="passwordEncoder"></property>
 	</bean>
 
+	<!-- UserDeatilService(com.gno.sample.security.CustomUserDetailService) 클래스는 
+	인증(authentication)에 사용할 UserDetails 객체를 생성하는 작업이고 , 
+	UserDetails는 db에서 id값으로 user의 정보 및  권한(authority)정보를  저장한다.   
+	이상 스러운건 이미 암호화 값으로 변경이 되있다.  -->
 	<bean id="userService" class="com.gno.sample.security.CustomUserDetailService" />
 	
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
