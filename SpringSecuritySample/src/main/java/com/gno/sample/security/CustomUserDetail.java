@@ -38,7 +38,7 @@ public class CustomUserDetail implements UserDetails{
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return this.person.getName();
+		return this.person.getId();
 	}
 
 	@Override

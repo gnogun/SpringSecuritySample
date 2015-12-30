@@ -59,14 +59,14 @@ public class LoginTest {
 		Person person = new Person();
 
 		person.setEmail("gnogun@naver.com");
-		person.setName("gno");
+		person.setId("gno");
 		person.setPassword(passwordEncoder.encode("gno"));
 		person.setAuth("ROLE_ADMIN");
 		
 		Person person2 = new Person();
 
 		person2.setEmail("gnogun@naver.com");
-		person2.setName("gno123");
+		person2.setId("gno123");
 		person2.setPassword(passwordEncoder.encode("gno123"));
 		person2.setAuth("ROLE_USER");
 

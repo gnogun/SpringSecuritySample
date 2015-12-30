@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface PersonRepository extends PagingAndSortingRepository<Person, Integer>{
 
-	List<Person> findByName(String id);
+	List<Person> findById(String id);
 }
