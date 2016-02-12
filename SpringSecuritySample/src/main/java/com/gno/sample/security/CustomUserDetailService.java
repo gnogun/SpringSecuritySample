@@ -26,7 +26,8 @@ public class CustomUserDetailService implements UserDetailsService{
 		if(person.size() == 0){
 			throw new UsernameNotFoundException(id);
 		}
-		//userDetail을 default로 사용할때
+		
+		//userDetail을 재정의 없이 Spring security default로 사용할때
 //		return new User(person.get(0).getId(), person.get(0).getPassword(), "ROLE_USER");
 		
 		return new CustomUserDetail(person.get(0));

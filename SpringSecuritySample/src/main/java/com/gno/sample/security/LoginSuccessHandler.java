@@ -22,24 +22,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 			HttpServletResponse response, Authentication auth)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		System.out.println(auth.getAuthorities().getClass().getName());
-		
-		List<GrantedAuthority> authorities = (List<GrantedAuthority>) auth.getAuthorities();
-		String strAuth = authorities.get(0).getAuthority();
-		
-		Cookie cookie = new Cookie("auth", strAuth);
-		cookie.setPath("/");
-		// ���߿� ������Ƽ�� ����
-//		cookie.setDomain("test.com");
-		response.addCookie(cookie);
-		
-		if(strAuth.equals("ROLE_ADMIN")){
-			response.sendRedirect(request.getContextPath() +  "/admin.do");
-		}else{
-			response.sendRedirect(request.getContextPath() +  "/user.do");
-		}
-		
-		
+		response.sendRedirect(request.getContextPath() + "/main.do");
 	}
 
 }

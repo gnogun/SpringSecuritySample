@@ -2,10 +2,13 @@ package com.gno.sample;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,40 +19,60 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class HomeController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(HomeController.class);
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
-	}
+//	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
+//	public String home(Locale locale, Model model) {
+//		logger.info("Welcome home! The client locale is {}.", locale);
+//
+//		Date date = new Date();
+//		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
+//				DateFormat.LONG, locale);
+//
+//		String formattedDate = dateFormat.format(date);
+//
+//		model.addAttribute("serverTime", formattedDate);
+//
+//		return "home";
+//	}
+
+//	@RequestMapping(value = "/admin.do", method = RequestMethod.GET)
+//	public String admin() {
+//		return "admin";
+//	}
+//
+//	@RequestMapping(value = "/user.do", method = RequestMethod.GET)
+//	public String user() {
+//		return "user";
+//	}
 	
-	@RequestMapping(value = "/admin.do", method = RequestMethod.GET)
-	public String admin() {		
-		return "admin";
+	@RequestMapping(value = { "/main.do" }, method = RequestMethod.GET)
+	public String mainPage(Authentication auth) {
+		// logger.info("Welcome home! The client locale is {}.");
+		
+		List<GrantedAuthority> authorities = (List<GrantedAuthority>) auth
+				.getAuthorities();
+		String strAuth = authorities.get(0).getAuthority();
+		
+		if(strAuth.equals("ROLE_ADMIN")){
+			return "admin";
+		}else if(strAuth.equals("ROLE_USER")){
+			return "user";
+		}else{
+			return "login";
+		}
+		
 	}
-	
-	@RequestMapping(value = "/user.do", method = RequestMethod.GET)
-	public String user() {		
-		return "user";
-	}
-	
-	@RequestMapping(value = {"/login.do"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/login.do" }, method = RequestMethod.GET)
 	public String login() {
-//		logger.info("Welcome home! The client locale is {}.");
+		// logger.info("Welcome home! The client locale is {}.");
 		return "login";
 	}
-	
+
 }

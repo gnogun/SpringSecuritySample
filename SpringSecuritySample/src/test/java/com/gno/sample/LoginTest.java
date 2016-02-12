@@ -86,7 +86,7 @@ public class LoginTest {
 								.withAuthenticationPrincipal(userDetails));
 	}
 
-	@Test
+//	@Test
 	public void formLoginTest() throws Exception {
 		mvc.perform(
 				post("/loginProcess").param("username","gno").param("password", "gno"))
