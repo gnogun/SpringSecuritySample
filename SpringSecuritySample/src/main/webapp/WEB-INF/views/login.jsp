@@ -8,7 +8,7 @@
 		action="loginProcess" runat="server">
 		<div class="da-form-row">
 			<div class=" da-home-form-big">
-				<input type="text" id="username" name="id"
+				<input type="text" id="username" name="username"
 					placeholder="Userid" minlength="3" maxlength="20" required="true"
 					nosymbols="true" nowhitespace="true" runat="server" />
 			</div>
@@ -16,6 +16,9 @@
 				<input type="password" id="password" name="password"
 					placeholder="Password" minlength="3" maxlength="20" required="true"
 					nosymbols2="true" nowhitespace="true" runat="server" />
+			</div>
+			<div class=" da-home-form-big">
+				<input type="checkbox" name="rememberme" />
 			</div>
 		</div>
 		<div class="da-home-form-btn-big">

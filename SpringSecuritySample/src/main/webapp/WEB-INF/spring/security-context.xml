@@ -45,36 +45,59 @@
 		<!-- authentication-failure-url="/login" login-processing-url="" password-parameter="" 
 			username-parameter="" -->
 
-
+		<security:remember-me
+			services-ref="rememberMeService" 
+		/>
+		
 
 		<security:logout logout-url="/logout"
-			invalidate-session="true"
-			success-handler-ref="logoutSuccessHandler" 
-			/>
-			
-			
+			invalidate-session="true" success-handler-ref="logoutSuccessHandler" />
 
 
-		<!--
-			delete-cookies="JSESSIONID,auth" 
-			logout-success-url="/login.do" />
-		 delete-cookies="" logout-url="" invalidate-session="true" success-handler-ref="" -->
+
+
+		<!-- delete-cookies="JSESSIONID,auth" logout-success-url="/login.do" /> 
+			delete-cookies="" logout-url="" invalidate-session="true" success-handler-ref="" -->
 
 	</security:http>
 
 	<security:authentication-manager>
 
 		<!-- <security:authentication-provider ref="userProvider"> </security:authentication-provider> -->
+		
+		
 		<security:authentication-provider
 			ref="CustomAuthenticationProvider">
 		</security:authentication-provider>
 
-
+		<!-- <security:authentication-provider>
+			<security:user-service>
+				<security:user name="mkyong" password="a12345678"
+					authorities="ROLE_USER" />
+			</security:user-service>
+		</security:authentication-provider> -->
 	</security:authentication-manager>
-
+	
 	<bean id="CustomAuthenticationProvider" class="com.gno.sample.security.CustomAuthenticationProvider">
 		<property name="userDetailsService" ref="userService"></property>
 		<property name="passwordEncoder" ref="passwordEncoder"></property>
+	</bean>
+	
+	<bean id="rememberMeService"
+		class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+		<constructor-arg>
+			<value>key</value>
+		</constructor-arg>
+		<constructor-arg>
+			<bean class="com.gno.sample.security.CustomUserDetailService" />
+		</constructor-arg>
+		
+		<property name="cookieName">
+			<value>customCookieName</value>
+		</property>
+		<property name="parameter">
+			<value>rememberme</value>
+		</property>
 	</bean>
 
 	<bean id="userService" class="com.gno.sample.security.CustomUserDetailService" />
